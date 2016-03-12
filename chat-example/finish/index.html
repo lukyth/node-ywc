@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      body { font: 16px Helvetica, Arial; }
+      ** { margin: 0; padding: 0; box-sizing: border-box; }
+      form input { height: 18px; width: 90%; border: 2px solid black;}
+      form button {  border: none; padding: 6px; background: rgb(130, 224, 255); width: 9%;}
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <button>Send</button><input id="m" autocomplete="off" autofocus />
+    </form>
+    <script src="/jquery.js"></script>
+    <script src="/socket.io.js"></script>
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+  </body>
+</html>

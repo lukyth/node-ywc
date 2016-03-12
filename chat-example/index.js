@@ -11,6 +11,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-http.listen(PORT, () =>{
+http.listen(PORT, () => {
   console.log(`listening on *:${PORT}`)
 })
