@@ -11,6 +11,15 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
+io.on('connection', (socket) => {
+  console.log('Found some new connection')
+
+  socket.on('send', (message) => {
+    console.log(message)
+    io.emit('update', message)
+  })
+})
+
 http.listen(PORT, () => {
   console.log(`listening on *:${PORT}`)
 })
