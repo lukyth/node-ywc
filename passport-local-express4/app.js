@@ -23,25 +23,25 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(require('cookie-parser')())
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+// app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
 
-// var session = require('express-session')
-// var RedisStore = require('connect-redis')(session)
-// app.use(require('express-session')(
-// {
-//   saveUninitialized: false,
-//   resave: false,
-//     store: new RedisStore(
-//         {
-//             host: '127.0.0.1',       //where redis store is
-//             port: 6379,              //default redis port
-//             prefix: 'sess',          //prefix for sessions name is store
-//             pass: 'passwordtoredis'  //password to redis db
-//         }
-//     ),
-//     secret: 'cookiesecret',        //cookie secret
-//     key: 'express.sid'
-// }))
+var session = require('express-session')
+var RedisStore = require('connect-redis')(session)
+app.use(require('express-session')(
+{
+  saveUninitialized: false,
+  resave: false,
+    store: new RedisStore(
+        {
+            host: '127.0.0.1',       //where redis store is
+            port: 6379,              //default redis port
+            prefix: 'sess',          //prefix for sessions name is store
+            pass: 'passwordtoredis'  //password to redis db
+        }
+    ),
+    secret: 'cookiesecret',        //cookie secret
+    key: 'express.sid'
+}))
 
 app.use(passport.initialize())
 app.use(flash())
